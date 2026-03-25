@@ -1,0 +1,4 @@
+.venv/
+words.db
+__pycahce__/
+*.pyc

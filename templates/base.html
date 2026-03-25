@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Freestyle App</title>
+	</head>
+	<body>
+		<h1>
+			{% block h1 %} {% endblock %}
+		</h1>
+		<main>
+			{% block main %} {% endblock %}
+		</main>
+		<h2>
+			<a href="{{ url_for('main_page') }}">Back To Menu</a>
+		</h2>
+	</body>
+</html>
