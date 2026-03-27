@@ -6,13 +6,15 @@
 	</head>
 	<body>
 		<h1>
-			{% block h1 %} {% endblock %}
+			{% block title_section %} {% endblock %}
 		</h1>
 		<main>
-			{% block main %} {% endblock %}
+			{% block function_section %} {% endblock %}
 		</main>
-		<h2>
-			<a href="{{ url_for('main_page') }}">Back To Menu</a>
-		</h2>
+		{% if not hidden %}
+			<nav>
+				<a href="{{ url_for('main_page') }}">Back To Menu</a>
+			</nav>
+		{% endif %}
 	</body>
 </html>

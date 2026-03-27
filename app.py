@@ -8,7 +8,7 @@ with app.app_context():
 
 @app.route("/")
 def main_page():
-    return render_template('main.html')
+    return render_template('main.html', hidden=True)
 
 @app.route("/practice")
 def practice_page():
