@@ -36,7 +36,8 @@ def add_word(conn, word):
         cur.execute(sql, (word,))
         return cur.lastrowid
     except sqlite3.IntegrityError:
-        pass # LEFT OFF HERE
+        cur.execute('SELECT id FROM words WHERE word = ?', (word,))
+        return cur.fetchone()[0]
 
 def add_rhyme(conn, rhyme, word_id):
     sql = """
@@ -45,6 +46,7 @@ def add_rhyme(conn, rhyme, word_id):
     """
     cur = conn.cursor()
     cur.execute(sql, (word_id, rhyme))
+    # LEFT OFF HERE: NEED TO WORK ON DUPLICATES HERE
 
 def edit_database():
     pass
