@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import database as db
 
 app = Flask(__name__)
@@ -14,9 +14,12 @@ def main_page():
 def practice_page():
     return "You're in practice!"
 
-@app.route("/add")
+@app.route("/add", methods=['GET', 'POST'])
 def add_page():
-    return "You're in add!"
+    if request.method == 'POST':
+        pass # LEFT OFF HERE`
+    else:
+        return render_template('add.html')
 
 @app.route("/edit")
 def edit_page():
