@@ -20,6 +20,7 @@ def create_rhymes_table(conn):
             id INTEGER PRIMARY KEY,
             word_id INTEGER NOT NULL,
             rhyme TEXT NOT NULL,
+            UNIQUE(word_id, rhyme),
             FOREIGN KEY (word_id) REFERENCES words(id)
         );
     """
@@ -41,12 +42,12 @@ def add_word(conn, word):
 
 def add_rhyme(conn, rhyme, word_id):
     sql = """
-        INSERT INTO rhymes (word_id, rhyme)
+        INSERT OR IGNORE INTO rhymes (word_id, rhyme)
         VALUES (?, ?)
     """
     cur = conn.cursor()
     cur.execute(sql, (word_id, rhyme))
-    # LEFT OFF HERE: NEED TO WORK ON DUPLICATES HERE
+
 
 def edit_database():
     pass
