@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 import database as db
+
 
 app = Flask(__name__)
 
@@ -17,7 +18,25 @@ def practice_page():
 @app.route("/add", methods=['GET', 'POST'])
 def add_page():
     if request.method == 'POST':
-        pass # LEFT OFF HERE`
+        # get word from form
+        word_to_add = request.form["word"]
+        # sanitize word
+        word_to_add = word_to_add.strip().lower()
+        # get rhymes string from form
+        rhymes_to_add = request.form["rhymes"]
+        # split, sanitize, filter rhymes
+        rhymes_sanitized = [r.strip().lower() for r in rhymes_to_add.split(",") if r.strip()]
+        # open database connection
+        with sqlite3.connect(db.words_database) as conn:
+            # add word
+            w = db.add_word(conn, word_to_add)
+            # loop through rhymes, call add_rhyme()
+            for r in rhymes_sanitized:
+                db.add_rhyme(conn, r, w) 
+            # flash success message
+        flash("Word added successfully!")
+        # redirect to /add
+        return redirect(url_for("add_page"))
     else:
         return render_template('add.html')
 
