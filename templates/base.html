@@ -8,6 +8,13 @@
 		<h1>
 			{% block title_section %} {% endblock %}
 		</h1>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
 		<main>
 			{% block function_section %} {% endblock %}
 		</main>

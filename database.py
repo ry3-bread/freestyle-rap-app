@@ -3,6 +3,9 @@ import os
 base_dir = os.path.dirname(os.path.abspath(__file__))
 words_database = os.path.join(base_dir, "words.db")
 
+def get_connection():
+    return sqlite3.connect(words_database)
+
 def create_words_table(conn):
     create_table = """
         CREATE TABLE IF NOT EXISTS words (

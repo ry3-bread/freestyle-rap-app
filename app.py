@@ -3,6 +3,7 @@ import database as db
 
 
 app = Flask(__name__)
+app.secret_key = "atemporarysecretkey" # will change this later since this is a personal app
 
 with app.app_context():
     db.initialize_database()
@@ -27,7 +28,7 @@ def add_page():
         # split, sanitize, filter rhymes
         rhymes_sanitized = [r.strip().lower() for r in rhymes_to_add.split(",") if r.strip()]
         # open database connection
-        with sqlite3.connect(db.words_database) as conn:
+        with db.get_connection() as conn:
             # add word
             w = db.add_word(conn, word_to_add)
             # loop through rhymes, call add_rhyme()
