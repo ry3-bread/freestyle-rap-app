@@ -23,6 +23,10 @@ def add_page():
         word_to_add = request.form["word"]
         # sanitize word
         word_to_add = word_to_add.strip().lower()
+        # handle edge case of empty word
+        if not word_to_add:
+            flash("Empty word! Try again.")
+            return redirect(url_for("add_page"))
         # get rhymes string from form
         rhymes_to_add = request.form["rhymes"]
         # split, sanitize, filter rhymes
@@ -41,9 +45,19 @@ def add_page():
     else:
         return render_template('add.html')
 
-@app.route("/edit")
+@app.route("/edit") # BROKEN, NEED TO FIX
 def edit_page():
+    # connect to database
+    with db.get_connection() as conn:
+        # set up cursor
+        cur = conn.cursor()
+        # get all words from database
+        cur.execute("SELECT word FROM words")
+        # render template - WORKING ON THIS
     return "You're in edit!"
+
+@app.route("/edit/<word_id>") # BROKEN, NEED TO FIX
+# need to fill this - NOT STARTED YET
 
 if __name__ == "__main__":
     app.run(debug=True)
