@@ -45,19 +45,17 @@ def add_page():
     else:
         return render_template('add.html')
 
-@app.route("/edit") # BROKEN, NEED TO FIX
+@app.route("/edit") 
 def edit_page():
     # connect to database
     with db.get_connection() as conn:
-        # set up cursor
-        cur = conn.cursor()
-        # get all words from database
-        cur.execute("SELECT word FROM words")
-        # render template - WORKING ON THIS
-    return "You're in edit!"
+        # get all the words
+        word_rows = db.get_all_words(conn)
+    return render_template('edit.html', words=word_rows)
 
-@app.route("/edit/<word_id>") # BROKEN, NEED TO FIX
-# need to fill this - NOT STARTED YET
+@app.route("/edit/<int:word_id>")
+def edit_specific_page(word_id):
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)

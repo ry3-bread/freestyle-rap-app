@@ -55,6 +55,11 @@ def add_rhyme(conn, rhyme, word_id):
 def edit_database():
     pass
 
+def get_all_words(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT id, word FROM words")
+    return cur.fetchall()
+
 def initialize_database():
     try:
         with sqlite3.connect(words_database) as conn:
