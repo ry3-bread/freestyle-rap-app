@@ -55,6 +55,16 @@ def add_rhyme(conn, rhyme, word_id):
 def edit_database():
     pass
 
+def get_word(conn, word_id):
+    cur = conn.cursor()
+    cur.execute("SELECT id, word FROM words where id = ?", (word_id,))
+    return cur.fetchone()
+
+def get_rhymes(conn, word_id):
+    cur = conn.cursor()
+    cur.execute("SELECT id, rhyme FROM rhymes where word_id = ?", (word_id,))
+    return cur.fetchall()
+
 def get_all_words(conn):
     cur = conn.cursor()
     cur.execute("SELECT id, word FROM words")

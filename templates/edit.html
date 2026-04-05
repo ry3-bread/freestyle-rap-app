@@ -4,9 +4,11 @@
 
 {% block function_section %}
 {% if words %}
-	{% for word in words %}
-		<p> {{ word }} </p>
-	{% endfor %}
+	<ul>
+		{% for word in words %}
+			<li><a href="{{ url_for('edit_specific_page', word_id=word[0]) }}">{{ word[1] }}</a></li>
+		{% endfor %}
+	</ul>
 {% else %}
 	<p>No words found.</p>
 {% endif %}
