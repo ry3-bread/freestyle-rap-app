@@ -55,7 +55,13 @@ def edit_page():
 
 @app.route("/edit/<int:word_id>")
 def edit_specific_page(word_id):
-    pass
+    # get connection
+    with db.get_connection() as conn:
+    # get word
+        word = db.get_word(conn, word_id)
+    # get rhymes
+        rhymes = db.get_rhymes(conn, word_id)
+    return render_template('edit_word.html', word=word, rhymes=rhymes)
 
 if __name__ == "__main__":
     app.run(debug=True)
