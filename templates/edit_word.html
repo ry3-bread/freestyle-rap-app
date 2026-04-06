@@ -8,8 +8,10 @@
 {% endif %}
 {% if rhymes %}
 	<p> Rhymes: </p>
+	<ul>
 	{% for rhyme in rhymes %}
-		<p> {{ rhyme[1] }} </p>
+		<li> {{ rhyme[1] }} </li>
 	{% endfor %}
+	</ul>
 {% endif %}
 {% endblock %}

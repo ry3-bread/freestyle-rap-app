@@ -24,7 +24,7 @@ def create_rhymes_table(conn):
             word_id INTEGER NOT NULL,
             rhyme TEXT NOT NULL,
             UNIQUE(word_id, rhyme),
-            FOREIGN KEY (word_id) REFERENCES words(id)
+            FOREIGN KEY (word_id) REFERENCES words(id) ON DELETE CASCADE
         );
     """
     cursor = conn.cursor()
@@ -70,9 +70,22 @@ def get_all_words(conn):
     cur.execute("SELECT id, word FROM words")
     return cur.fetchall()
 
+def rename_word(conn, word_id, new_name):
+    cur = conn.cursor()
+    cur.execute("UPDATE words SET word = ? WHERE id = ?", (new_name, word_id))
+
+def delete_word(conn, word_id):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM words WHERE id = ?", (word_id,))
+
+def delete_rhyme(conn, rhyme_id):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM rhymes WHERE id = ?", (rhyme_id,))
+
 def initialize_database():
     try:
         with sqlite3.connect(words_database) as conn:
+            conn.execute("PRAGMA foreign_keys = ON")
             print(f"Opened SQLite database with version {sqlite3.sqlite_version} successfully.")
             create_words_table(conn)
             create_rhymes_table(conn)
