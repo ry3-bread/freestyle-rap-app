@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title_section %} Rename Word {% endblock %}
+
+{% block function_section %}
+{% if word %}
+	<p> Selected word: {{ word[1] }} </p>
+{% endif %}
+{% if rhymes %}
+	<p> Rhymes: </p>
+	<ul>
+	{% for rhyme in rhymes %}
+		<li> {{ rhyme[1] }} </li>
+	{% endfor %}
+	</ul>
+{% endif %}
+{% endblock %}

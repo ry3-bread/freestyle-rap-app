@@ -63,5 +63,25 @@ def edit_specific_page(word_id):
         rhymes = db.get_rhymes(conn, word_id)
     return render_template('edit_word.html', word=word, rhymes=rhymes)
 
+@app.route("/edit/<int:word_id>/rename", methods=['GET', 'POST'])
+def edit_rename_page(word_id):
+    # get connection
+    if request.method == 'POST':
+        rename_word = request.form["rename_word"]
+        rename_word = rename_word.strip().lower()
+        if not rename_word:
+            flash("Empty word to rename to! Try again.")
+            return redirect(url_for("edit_rename_page", word_id=word_id))
+        with db.get_connection() as conn:
+            if db.rename_word(conn, word_id, rename_word):
+                flash("Successful!")
+                return redirect(url_for("edit_rename_page", word_id=word_id))
+            else:
+                flash("Failed. Word already exists.")
+                return redirect(url_for("edit_rename_page", word_id=word_id))
+    else:
+        return render_template("edit_rename_page.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

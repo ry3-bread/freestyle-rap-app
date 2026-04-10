@@ -72,7 +72,11 @@ def get_all_words(conn):
 
 def rename_word(conn, word_id, new_name):
     cur = conn.cursor()
-    cur.execute("UPDATE words SET word = ? WHERE id = ?", (new_name, word_id))
+    try:
+        cur.execute("UPDATE words SET word = ? WHERE id = ?", (new_name, word_id))
+        return True
+    except sqlite3.IntegrityError:
+        return False
 
 def delete_word(conn, word_id):
     cur = conn.cursor()
