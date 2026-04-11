@@ -3,15 +3,10 @@
 {% block title_section %} Rename Word {% endblock %}
 
 {% block function_section %}
-{% if word %}
-	<p> Selected word: {{ word[1] }} </p>
-{% endif %}
-{% if rhymes %}
-	<p> Rhymes: </p>
-	<ul>
-	{% for rhyme in rhymes %}
-		<li> {{ rhyme[1] }} </li>
-	{% endfor %}
-	</ul>
-{% endif %}
+<p> Selected word: {{ word[1] }} </p>
+<form action="{{ url_for('edit_rename_page', word_id=word[0]) }}" method="POST">
+	<label for="rename_word">Rename to:</label><br>
+	<input type="text" id="rename_word" name="rename_word"><br>
+	<input type="submit" value="Submit">
+</form>
 {% endblock %}

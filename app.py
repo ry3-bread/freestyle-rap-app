@@ -80,7 +80,9 @@ def edit_rename_page(word_id):
                 flash("Failed. Word already exists.")
                 return redirect(url_for("edit_rename_page", word_id=word_id))
     else:
-        return render_template("edit_rename_page.html")
+        with db.get_connection() as conn:
+            word = db.get_word(conn, word_id)
+        return render_template("edit_rename_page.html", word=word)
 
 
 if __name__ == "__main__":

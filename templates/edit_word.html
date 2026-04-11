@@ -14,4 +14,9 @@
 	{% endfor %}
 	</ul>
 {% endif %}
+<p> What would you like to do? </p>
+<ul>
+	<li><a href="{{ url_for('edit_rename_page', word_id=word[0]) }}"> Rename word </a></li>
+	<!-- more options later -->
+</ul>
 {% endblock %}
