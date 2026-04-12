@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title_section %} Add Rhymes {% endblock %}
+
+{% block function_section %}
+<p> Selected word: {{ word[1] }} </p>
+<form action="{{ url_for('edit_add_rhymes_page', word_id=word[0]) }}" method="POST">
+        <label for="more_rhymes">Add rhymes:</label><br>
+	<textarea id="more_rhymes" name="more_rhymes" rows="4"></textarea>
+        <input type="submit" value="Submit">
+</form>
+{% endblock %}

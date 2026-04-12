@@ -17,6 +17,7 @@
 <p> What would you like to do? </p>
 <ul>
 	<li><a href="{{ url_for('edit_rename_page', word_id=word[0]) }}"> Rename word </a></li>
-	<!-- more options later -->
+	<li><a href="{{ url_for('edit_add_rhymes_page', word_id=word[0]) }}"> Add rhymes </a></li>
+	<!-- more options later: delete word, delete rhymes -->
 </ul>
 {% endblock %}
