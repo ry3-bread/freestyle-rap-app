@@ -84,6 +84,24 @@ def edit_rename_page(word_id):
             word = db.get_word(conn, word_id)
         return render_template("edit_rename_page.html", word=word)
 
+@app.route("/edit/<int:word_id>/add-rhymes", methods=['GET', 'POST'])
+def edit_add_rhymes_page(word_id):
+    # get connection
+    if request.method == 'POST':
+        more_rhymes = request.form["more_rhymes"]
+        more_rhymes = [r.strip().lower() for r in more_rhymes.split(",") if r.strip()]
+        if not more_rhymes:
+            flash("No rhymes submitted! Try again.")
+            return redirect(url_for("edit_add_rhymes_page", word_id=word_id))
+        with db.get_connection() as conn:
+            for rhyme in more_rhymes:
+                db.add_rhyme(conn, rhyme, word_id)
+        flash("Successful adding of rhymes!")
+        return redirect(url_for("edit_add_rhymes_page", word_id=word_id))
+    else:
+        with db.get_connection() as conn:
+            word = db.get_word(conn, word_id)
+        return render_template("edit_add_rhymes_page.html", word=word)
 
 if __name__ == "__main__":
     app.run(debug=True)
