@@ -103,5 +103,20 @@ def edit_add_rhymes_page(word_id):
             word = db.get_word(conn, word_id)
         return render_template("edit_add_rhymes_page.html", word=word)
 
+@app.route("/edit/<int:word_id>/delete-word", methods=['GET', 'POST'])
+def edit_delete_word_page(word_id):
+    if request.method == 'POST':
+        if request.form["action"] == "Yes":
+            with db.get_connection() as conn:
+                db.delete_word(conn, word_id)
+            flash("Successful!")
+            return redirect(url_for("edit_page"))
+        else:
+            return redirect(url_for("edit_specific_page", word_id=word_id))
+    else:
+        with db.get_connection() as conn:
+            word = db.get_word(conn, word_id)
+        return render_template("edit_delete_word_page.html", word=word)
+
 if __name__ == "__main__":
     app.run(debug=True)
