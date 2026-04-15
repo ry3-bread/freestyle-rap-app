@@ -118,5 +118,12 @@ def edit_delete_word_page(word_id):
             word = db.get_word(conn, word_id)
         return render_template("edit_delete_word_page.html", word=word)
 
+@app.route("/edit/<int:word_id>/delete-rhyme/<int:rhyme_id>", methods=['POST'])
+def edit_delete_rhyme_page(word_id, rhyme_id):
+    with db.get_connection() as conn:
+        db.delete_rhyme(conn, rhyme_id)
+    flash("Successful!")
+    return redirect(url_for("edit_specific_page", word_id=word_id))
+
 if __name__ == "__main__":
     app.run(debug=True)
