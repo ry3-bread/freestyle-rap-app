@@ -120,6 +120,7 @@ def edit_delete_word_page(word_id):
 
 @app.route("/edit/<int:word_id>/delete-rhyme/<int:rhyme_id>", methods=['POST'])
 def edit_delete_rhyme_page(word_id, rhyme_id):
+    print(f"Deleting rhyme_id: {rhyme_id}")
     with db.get_connection() as conn:
         db.delete_rhyme(conn, rhyme_id)
     flash("Successful!")
