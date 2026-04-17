@@ -12,10 +12,6 @@ with app.app_context():
 def main_page():
     return render_template('main.html', hidden=True)
 
-@app.route("/practice")
-def practice_page():
-    return "You're in practice!"
-
 @app.route("/add", methods=['GET', 'POST'])
 def add_page():
     if request.method == 'POST':
@@ -125,6 +121,12 @@ def edit_delete_rhyme_page(word_id, rhyme_id):
         db.delete_rhyme(conn, rhyme_id)
     flash("Successful!")
     return redirect(url_for("edit_specific_page", word_id=word_id))
+
+@app.route("/practice")
+def practice():
+    with db.get_connection() as conn:
+        random_word = db.random_word(conn)
+    return render_template("practice.html", random_word=random_word)
 
 if __name__ == "__main__":
     app.run(debug=True)

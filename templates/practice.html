@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title_section %} Practice {% endblock %}
+
+{% block function_section %}
+	<form action="{{ url_for('practice') }}" method="GET">
+		<p> {{ random_word[1] }} </p>
+		<button type="submit">Next</button>
+	</form>
+{% endblock %}

@@ -86,6 +86,11 @@ def delete_rhyme(conn, rhyme_id):
     cur = conn.cursor()
     cur.execute("DELETE FROM rhymes WHERE id = ?", (rhyme_id,))
 
+def random_word(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT id, word FROM words ORDER BY RANDOM() LIMIT 1")
+    return cur.fetchone()
+
 def initialize_database():
     try:
         with sqlite3.connect(words_database) as conn:
