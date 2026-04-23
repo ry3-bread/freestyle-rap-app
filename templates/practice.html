@@ -3,8 +3,15 @@
 {% block title_section %} Practice {% endblock %}
 
 {% block function_section %}
-	<form action="{{ url_for('practice') }}" method="GET">
+	<form id="next-form" action="{{ url_for('practice') }}" method="GET">
 		<p> {{ random_word[1] }} </p>
 		<button type="submit">Next</button>
 	</form>
+	<script>
+		document.addEventListener('keydown', function(event) {
+			if (event.code === 'Space') {
+				document.getElementById('next-form').submit();
+			}
+		});
+	</script>
 {% endblock %}
