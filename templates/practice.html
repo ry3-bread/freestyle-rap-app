@@ -2,9 +2,9 @@
 
 {% block title_section %} Practice {% endblock %}
 
-{% block function_section %}
+{% block function_section %} 
 	<form id="next-form" action="{{ url_for('practice') }}" method="GET">
-		<p> {{ random_word[1] }} </p>
+		<p class="practice-word"> {{ random_word[1] }} </p>
 		<button type="submit">Next</button>
 	</form>
 	<script>
